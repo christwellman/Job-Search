@@ -35,7 +35,7 @@ def summarize_job_posting(content):
             model="gpt-4",  # Ensure this is the correct model name
             messages=[
                 {"role": "system", "content": "You are a career placement specialist, expierenced in finding great job opportunities for skilled individuals."},
-                {"role": "user", "content": f"Please analyze the following job posting and provide a concise summary that includes: The exact job title, The company name, Job location (or \"remote\" if applicable), 3-5 key responsibilities of the role, The required qualifications and experience, 1-2 unique or compelling aspects of the role or company. Distill the key points into a few bullets focusing on the most important and relevant details. The summary should be easily scannable and digestible to the reader.:\n\n{content}"}
+                {"role": "user", "content": f"Your task is to analyze the following job posting and provide a concise, easily scannable summary. <Task Breakdown> 1) Extract and list the exact job title. 2) Extract and list the company name.3) Extract and list the job location (or specify \"remote\" if applicable). 4)Identify and list 3-5 key responsibilities of the role. 5) Identify and list the required qualifications and experience. 6) Highlight 1-2 unique or compelling aspects of the role or company. 7) Ensure the summary is focused on the most important and relevant details, formatted as bullet points.:\n\n{content}"}
             ],
             user=PROJECT_ID  # This tags the request with your project identifier
         )
