@@ -1,0 +1,98 @@
+Forbright Bank
+Senior Manager, Data & Analytics, Digital Banking 
+United States · 1 week ago · Over 100 applicants
+Remote  Full-timeMatches your job preferences, job type is Full-time.
+1 company alum works here
+8 of 10 skills match your profile - you may be a good fit
+See how you compare to over 100 other applicants. Try Premium for $0
+
+
+Am I a good fit for this job?
+
+How can I best position myself for this job?
+
+Tell me more about Forbright...
+
+Easy Apply
+
+Save
+Save Senior Manager, Data & Analytics, Digital Banking  at Forbright Bank
+Share
+Show more options
+About the job
+COMPANY DESCRIPTION: Forbright is a nationwide full-service bank and lender helping accelerate the transition to a sustainable and low-carbon economy. Headquartered in Chevy Chase, Maryland, Forbright is committed to accelerating the transition to a sustainable economy by financing visionary leader in clean energy, healthcare, technology, financial services, real estate, and other industries with extraordinary service.
+
+COMPANY CULTURE: We are a dynamic, high energy, fun, and fast-paced organization that has an exciting growth trajectory, meaningful mission, and embedded responsible environmental, social, and governance (ESG) practices into our daily interactions. We offer our team members a culture of collaboration, inclusion, flexibility, recognition, and giving back. We look to hire individuals that are passionate about our mission, and who are motivated, customer and results-oriented, innovative, adaptable, and thoughtful.
+
+COMPANY MISSION:  We are a mission-driven institution. We operate a sound dynamic institution that is well capitalized, liquid, profitable and uses best practices to manage risk and assure compliance with laws and regulations. We use Forbright’s capital, capabilities, innovation, and expertise to help our clients succeed and contribute broadly to building a more sustainable future.
+
+JOB SUMMARY: The Senior Manager, Data & Analytics, Digital Banking is responsible for leading and managing data product initiatives, managing stakeholder requests, acting as a data Scrum Master, and performing business analysis and visualization tasks. This dual role requires a blend of technical expertise, project management skills, and stakeholder management capabilities. The role is crucial to building, maintaining, and optimizing a modern analytics infrastructure and establishing a single source of truth (SSOT) to power all Forbright Digital Banking analytics, reporting, and data initiatives.
+
+DUTIES AND RESPONSIBILITIES:
+
+
+Data Product Management: 
+Lead the development and management of data & analytics projects from inception to launch, ensuring alignment with business objectives 
+Act as Scrum Master for the data team, facilitating Agile ceremonies such as sprint planning, daily stand-ups, sprint reviews, and retrospectives 
+Collaborate with cross-functional teams to define data product vision, roadmap, and release plans 
+Prioritize and manage the product backlog, ensuring that development tasks are aligned with business priorities and goals 
+Engage with stakeholders to gather requirements, provide insights, and ensure successful implementation of data solutions 
+Monitor and report on product performance, making data-driven recommendations for improvements 
+Report out the work delivered by the data team, connecting deliverables to the value generated for the enterprise 
+Business Analysis & Analytics Engineering: 
+Write and optimize SQL queries to extract, manipulate, and analyze data from various databases 
+Develop and maintain dashboards, reports, and data visualizations to support business decision-making 
+Build and deploy DBT models to enhance analytics self-service capabilities, ensuring data transformation processes are efficient, reliable, and scalable 
+Maintain and improve the data warehouse architecture to support analytics and reporting needs 
+Implement best practices for version control, testing, and documentation in DBT projects 
+Troubleshoot and resolve issues related to data transformations and pipelines 
+
+
+
+QUALIFICATIONS:
+
+
+Bachelor's or Master's Degree in Business Analytics, Computer Science preferred 
+4+ years of experience showing progression/promotion within financial services industry
+Strong knowledge of Agile methodologies and experience as a data product manager or scrum master 
+Strong knowledge of Agile methodologies and experience as a data product manager or scrum master requires 
+Excellent analytical, problem-solving, and communication skills 
+Ability to manage multiple projects and priorities in a fast-paced environment 
+Experience with stakeholder management and the ability to translate business needs into technical requirements 
+Experience developing analytics solutions within cloud data warehouses (Snowflake, BigQuery, DataBricks) 
+Expertise in SQL & Jira, Python, and data visualization tools 
+Experience using DBT to transform raw data into production data models 
+Knowledge of modeling data for BI tool consumption (Looker, Sigma, PowerBI) 
+Understanding and application of technology trends (banking industry, lending industry and overall best practices) 
+
+
+
+The pay range for this position is below. The specific rate will depend on the successful candidate’s qualifications and prior experience. $120,000 (entry level qualifications) to $160,000 (highly experienced).
+
+POSITION REQUIREMENTS: The requirements described are representative of those that must be met by an employee to successfully perform the essential functions of this job. Reasonable accommodations may be made to enable employees to perform the essential functions. Work is conducted primarily in an office; however, some positions may be conducted remotely via technology. While performing duties of this job, the employee may be regularly required for prolonged periods of time to:
+
+
+ Sit or stand at a desk
+ Walk, stoop down, crouch, kneel or bend over
+ Use hands and fingers
+ Utilize a computer monitor with visual acuity
+ Operate technology and other office machinery such as printers, fax machines, scanners, etc
+ Communicate clearly both verbally and in writing with others
+
+
+
+ADDITIONAL DUTIES: For Forbright Bank to remain efficient and nimble as a growing organization, team members are expected to exhibit a high level of flexibility regarding any duties that may be situationally assigned outside of this job description.
+
+PERKS/BENEFITS:
+
+
+ Comprehensive health, dental, and vision plans
+ 4 weeks PTO
+ 401k + company match
+ Metro SmartTrip benefits ($50/mo)
+ Remote or hybrid work schedules for most positions
+ Bonuses for purchasing solar panels, electric vehicles, biking to work, etc
+ Paid subscriptions to Veterans Compost, Imperfect Foods, and more!
+ Best Workplaces for Commuters 2023 & 2024 winner
+ The Washington Post Top Workplaces 2023 & 2024 winner
+ American Banker Best Banks to Work For 2023 winner
