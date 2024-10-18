@@ -1,0 +1,61 @@
+About the job
+GitLab is an open core software company that develops the most comprehensive AI-powered DevSecOps Platform, used by more than 100,000 organizations. Our mission is to enable everyone to contribute to and co-create the software that powers our world. When everyone can contribute, consumers become contributors, significantly accelerating the rate of human progress. This mission is integral to our culture, influencing how we hire, build products, and lead our industry. We make this possible at GitLab by running our operations on our product and staying aligned with our values. Learn more about Life at GitLab.
+
+An Overview Of This Role
+
+As the Manager of Enterprise Applications, you will report directly to the Director of CRM Systems, overseeing a team of highly collaborative and results-oriented IT professionals dedicated to delivering global, high-value IT applications throughout our company. Your role involves leveraging your skills, experience, drive, and passion to ensure that GitLab is equipped with IT applications to meet and exceed corporate objectives. You will establish and maintain strong business alignment with team members and sponsors, anticipate the evolving needs of the business, and strategically scale the team to stay ahead of industry trends. Your expertise in Salesforce will be pivotal as you contribute to roadmap discussions across the organization. Thriving in a dynamic environment, you will challenge the status quo and demonstrate success in this fast-paced setting. Your ability to build and sustain professional relationships at all organizational levels is crucial, as you will play a key role in mentoring team members. With well-honed problem-solving and decision-making skills, you will exhibit agility and adaptability, effectively managing change within the team. Your role is strategic and tactical, influencing adoption, prioritizing results, and maintaining a strong client service orientation. Your reputation precedes you, as you are known for raising the bar regarding quality and execution.
+
+What You’ll Do
+
+Strategic and operational IT Application ownership for the following areas: Sales, Marketing, Support, Finance, HR, and Legal.
+Drive executive-level communication/support for the IT Applications strategy.
+Partner with key business sponsors / executive stakeholders to deliver high-value IT solutions.
+Drive operational excellence while leveraging KPIs to measure the success/value of the IT Applications team. Comfortable establishing a culture of measurement and the ability to identify, define, implement, and execute critical metrics across the team.
+Develop and maintain relationships with client organizations to ensure their IT Application expectations are met and priorities set at the appropriate level.
+Provide critical input to develop and manage the plan of record for the IT Applications portfolio while driving a culture of delivery to commitments.
+The Manager is expected to identify critical areas of improvement, offer recommended solutions, and drive the execution of those solutions.
+
+What You’ll Bring
+
+5-7 years’ experience in IT, with 3+ years’ experience leading and managing an IT organization or Applications group at a fast-growing high technology company.
+Excellent change management skills and ability to operate effectively in a fast-paced environment.
+Experience with SaaS-based solutions and cloud architectures.
+Demonstrated ability to successfully lead and develop global applications organization in collaboration with overall IT strategy.
+Knowledgeable in compliance and information security.
+Current on business applications, trends in IT, and experience evaluating/implementing new innovative IT solutions
+A process-oriented individual with substantial project management skills who has the flexibility to thrive in a fast-paced, dynamic organization.
+Candidate must have proven ability to consistently and collaboratively resolve issues, mitigate roadblocks, and meet all financial and management goals on time. Will be a self-starter who maps own direction to succeed.
+Excellent team management, coaching, and mentoring skills, including the ability to coach and manage other IT managers.
+Ability to delegate key tasks within the team to improve team efficiency and throughput.
+Must be comfortable with ambiguity and fast change with an ability to adapt quickly and easily.
+Relevant business/industry acumen with the ability to quickly and thoroughly understand business priorities, operations, and IT enablement potential.
+Ability to use GitLab
+
+About The Team
+
+The Enterprise Applications team is responsible for GitLab’s critical business applications including Salesforce, Zuora, Netsuite and many others. This team will be an important part of GitLab’s ability to scale as an organization.This includes introducing new systems features and capabilities while maintaining the existing production environment for scalability and compliance.
+
+How GitLab Will Support You
+
+Benefits to support your health, finances, and well-being
+All remote, asynchronous work environment
+Flexible Paid Time Off
+Team Member Resource Groups
+Equity Compensation & Employee Stock Purchase Plan
+Growth and development budget 
+Parental leave 
+Home office support
+
+Please note that we welcome interest from candidates with varying levels of experience; many successful candidates do not meet every single requirement. Additionally, studies have shown that people from underrepresented groups are less likely to apply to a job unless they meet every single qualification. If you're excited about this role, please apply and allow our recruiters to assess your application.
+
+The base salary range for this role’s listed level is currently for residents of listed locations only. Grade level and salary ranges are determined through interviews and a review of education, experience, knowledge, skills, abilities of the applicant, equity with other team members, and alignment with market data. See more information on our benefits and equity. Sales roles are also eligible for incentive pay targeted at up to 100% of the offered base salary.
+
+California/Colorado/Hawaii/New Jersey/New York/Washington/DC pay range
+
+$103,600—$222,000 USD
+
+Country Hiring Guidelines: GitLab hires new team members in countries around the world. All of our roles are remote, however some roles may carry specific location-based eligibility requirements. Our Talent Acquisition team can help answer any questions about location after starting the recruiting process.
+
+Privacy Policy: Please review our Recruitment Privacy Policy. Your privacy is important to us.
+
+GitLab is proud to be an equal opportunity workplace and is an affirmative action employer. GitLab’s policies and practices relating to recruitment, employment, career development and advancement, promotion, and retirement are based solely on merit, regardless of race, color, religion, ancestry, sex (including pregnancy, lactation, sexual orientation, gender identity, or gender expression), national origin, age, citizenship, marital status, mental or physical disability, genetic information (including family medical history), discharge status from the military, protected veteran status (which includes disabled veterans, recently separated veterans, active duty wartime or campaign badge veterans, and Armed Forces service medal veterans), or any other basis protected by law. GitLab will not tolerate discrimination or harassment based on any of these characteristics. See also GitLab’s EEO Policy and EEO is the Law. If you have a disability or special need that requires accommodation, please let us know during the recruiting process.
