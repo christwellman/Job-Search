@@ -4,43 +4,18 @@ Used by the `save-posting` Claude Code skill: the skill extracts the posting
 via the browser, then pipes {"meta": {...}, "body": "...", "force": bool} as
 JSON on stdin to this script.
 """
-import datetime
 import json
-import re
 import sys
 from pathlib import Path
 
-POSTINGS_DIR = Path(__file__).resolve().parent / "Postings"
-
-# Frontmatter keys, in fixed output order.
-FIELDS = ("title", "company", "location", "source_url", "date_scraped")
-
-# Characters not allowed in filenames on common filesystems.
-_ILLEGAL = re.compile(r'[<>:"/\\|?*]')
-_WHITESPACE = re.compile(r"\s+")
-
-
-def sanitize_filename(title: str, company: str) -> str:
-    base = f"{title} - {company}"
-    base = _ILLEGAL.sub(" ", base)
-    base = _WHITESPACE.sub(" ", base).strip()
-    return f"{base}.txt"
-
-
-def render_posting(meta: dict, body: str) -> str:
-    lines = ["---"]
-    for key in FIELDS:
-        lines.append(f"{key}: {meta.get(key) or ''}")
-    lines.append("---")
-    lines.append("")
-    return "\n".join(lines) + "\n" + body.strip() + "\n"
+from postings import POSTINGS_DIR, now_date, render_posting, sanitize_filename
 
 
 def run(data: dict, postings_dir: Path = POSTINGS_DIR) -> dict:
     meta = dict(data.get("meta", {}))
     body = data.get("body", "")
     force = bool(data.get("force", False))
-    meta.setdefault("date_scraped", datetime.date.today().isoformat())
+    meta.setdefault("date_scraped", now_date())
 
     postings_dir = Path(postings_dir)
     path = postings_dir / sanitize_filename(
