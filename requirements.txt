@@ -1,0 +1,5 @@
+anthropic
+python-dotenv
+markdown
+weasyprint
+tqdm
