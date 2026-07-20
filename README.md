@@ -42,3 +42,15 @@ Claude Haiku; tailoring uses Claude Sonnet. Postings without a metadata header
     ./venv/bin/python markdown_to_pdf.py "Customized Resumes/<file>.md"
 
 Writes a PDF beside the source file, styled with `Resume.css`.
+
+## Housekeeping
+
+Flag postings older than 6 months (using each posting's `date_scraped`, or its
+file date for older files):
+
+    ./venv/bin/python stale.py            # report only — changes nothing
+    ./venv/bin/python stale.py --archive  # move the flagged groups into Archive/
+    ./venv/bin/python stale.py --months 3 # use a different threshold
+
+Each flagged posting is moved together with its summary and tailored resume.
+It never deletes, and never overwrites a file already in `Archive/`.
