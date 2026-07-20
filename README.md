@@ -1,16 +1,22 @@
 # Job-Search
-Library of Sources and Scripts to leverage LLM to help customize my resume for specific job postings.
 
-Commit a resume.md file and add postings of interest to the postings directoty
+Tools to tailor a resume to specific job postings using Claude.
 
-Run the scanner.py and the LLM will tailor the resume to the job posting.
+## Setup
+
+    python3 -m venv venv
+    ./venv/bin/pip install -r requirements.txt
+
+Add your Anthropic key to `.env`:
+
+    ANTHROPIC_API_KEY=sk-ant-...
 
 ## Saving postings
 
-To capture a job posting, paste its URL to Claude Code (or say "save this
-posting" with the tab open). Claude reads it from your logged-in Chrome —
-handling LinkedIn / Workday / company pages that a plain scraper can't — and
-writes `Postings/<Title> - <Company>.txt` with a metadata header:
+Paste a job URL to Claude Code (or say "save this posting" with the tab open).
+Claude reads it from your logged-in Chrome — handling LinkedIn / Workday /
+company pages that a plain scraper can't — and writes
+`Postings/<Title> - <Company>.txt` with a metadata header:
 
     ---
     title: ...
@@ -20,5 +26,19 @@ writes `Postings/<Title> - <Company>.txt` with a metadata header:
     date_scraped: YYYY-MM-DD
     ---
 
-Then run `Scanner.py` as usual to summarize and tailor.
+## Tailoring
 
+Put your resume in `Resume.md`, then:
+
+    ./venv/bin/python Scanner.py
+
+For each posting in `Postings/`, this writes a summary and a tailored resume
+(with an ATS keyword-coverage checklist) to `Customized Resumes/`. Summaries use
+Claude Haiku; tailoring uses Claude Sonnet. Postings without a metadata header
+(older files) are still processed.
+
+## PDF
+
+    ./venv/bin/python markdown_to_pdf.py "Customized Resumes/<file>.md"
+
+Writes a PDF beside the source file, styled with `Resume.css`.
