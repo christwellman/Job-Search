@@ -1,134 +1,175 @@
-import os
 import logging
-from openai import OpenAI
-from dotenv import load_dotenv
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+import anthropic
+from dotenv import load_dotenv
 from tqdm import tqdm
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from postings import parse_posting
 
-# Get the directory of the current script
-script_dir = os.path.dirname(os.path.abspath(__file__))
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# Construct the path to the .env file
-env_path = os.path.join(script_dir, '.env')
+SCRIPT_DIR = Path(__file__).resolve().parent
+load_dotenv(SCRIPT_DIR / ".env")
 
-# Load environment variables from the specified path
-load_dotenv(env_path)
+SUMMARY_MODEL = "claude-haiku-4-5"
+TAILOR_MODEL = "claude-sonnet-5"
+REFERENCE_DIR = SCRIPT_DIR / "Reference"
 
-# Validate environment variables
-required_env_vars = ["OPENAI_API_KEY", "OPENAI_ORG_ID", "OPENAI_PROJECT_ID"]
-for var in required_env_vars:
-    if not os.getenv(var):
-        logging.error(f"Missing environment variable: {var}")
-        exit(1)
+_client = None
 
-# Set up OpenAI client
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
-    organization=os.getenv("OPENAI_ORG_ID")
-)
-PROJECT_ID = os.getenv("OPENAI_PROJECT_ID")
 
-def summarize_job_posting(content):
+def get_client() -> anthropic.Anthropic:
+    """Construct the Anthropic client lazily so importing this module needs no key."""
+    global _client
+    if _client is None:
+        _client = anthropic.Anthropic()
+    return _client
+
+
+def _read_reference(name: str) -> str:
     try:
-        response = client.chat.completions.create(
-            # model="gpt-4o,
-            # model="o1-mini-2024-09-12",
-            # model="gpt-4o-2024-11-20",
-            model= "gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "You are a career placement specialist, experienced in finding great job opportunities for skilled individuals."},
-                {"role": "user", "content": f"Your task is to analyze the following job posting and provide a concise, easily scannable summary. <Task Breakdown> 1) Extract and list the exact job title. 2) Extract and list the company name.3) Extract and list the job location (or specify \"remote\" if applicable). 4)Identify and list 3-5 key responsibilities of the role. 5) Identify and list the required qualifications and experience. 6) Highlight 1-2 unique or compelling aspects of the role or company. 7) Ensure the summary is focused on the most important and relevant details, formatted as bullet points.:\n\n{content}"}
-            ],
-            user=PROJECT_ID
+        return (REFERENCE_DIR / name).read_text(encoding="utf-8")
+    except OSError:
+        logging.warning(f"Reference file not found: {name}")
+        return ""
+
+
+ACTION_WORDS = _read_reference("Action words")
+RESUME_STATEMENTS = _read_reference("Resume Statements.md")
+
+
+def _text(response) -> str:
+    return "".join(b.text for b in response.content if b.type == "text")
+
+
+def _posting_text(meta: dict, body: str) -> str:
+    if not meta:
+        return body
+    header = "\n".join(f"{k}: {v}" for k, v in meta.items() if v)
+    return f"{header}\n\n{body}"
+
+
+def summarize_job_posting(meta: dict, body: str):
+    try:
+        response = get_client().messages.create(
+            model=SUMMARY_MODEL,
+            max_tokens=1024,
+            system="You are a career placement specialist who finds great opportunities for skilled candidates.",
+            messages=[{
+                "role": "user",
+                "content": (
+                    "Summarize this job posting as a concise, scannable bullet list. Include: "
+                    "the exact job title; the company; the location (or 'Remote'); 3-5 key "
+                    "responsibilities; the required qualifications and experience; and 1-2 "
+                    "compelling aspects of the role. Focus on the most relevant details.\n\n"
+                    f"{_posting_text(meta, body)}"
+                ),
+            }],
         )
-        return response.choices[0].message.content
+        return _text(response)
     except Exception as e:
         logging.error(f"Error summarizing job posting: {e}")
         return None
 
-def tailor_resume(resume_content, job_posting_content):
+
+def tailor_resume(resume: str, meta: dict, body: str):
     try:
-        response = client.chat.completions.create(
-            # model="gpt-4",
-            model= "gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "You are a professional resume writer and career coach with deep knowledge of the technology industry, experienced in crafting standout resumes that get past ATS and catch the attention of hiring managers."},
-                {"role": "user", "content": f"<Instruction>: Please act as an experienced resume editor and recruiter. Your task is to review and enhance my resume based on the job posting provided. Follow the detailed instructions below to ensure a comprehensive and effective revision. \n <Task Breakdown>: \1) Revise my resume and position my experience as a solution to the target job posting's pain points. 2) Tailor each bullet point to reflect the required experience and qualifications specified in the job posting, using the same exact phrases, terms, and language from the job posting. 3) Keep it concise, avoid redundancy and cliché terms, and use active voice. 4) Highlight accomplishments and quantify where possible. 5)Include keywords from the job posting. 6) Prioritize transferable skills in areas where I lack experience. 7) Do not fabricate achievements or skills not present in the original resume 8) Do not alter job titles or employment dates from the original resume. 9) Ensure the output is in Markdown format. 10) Identify and correct any grammatical, spelling, or syntax errors. 11) Highlight formatting issues and suggest changes to improve clarity and effectiveness. 12) Optimize for ATS software. 13) Provide feedback on the content, including its clarity, logical flow, and effectiveness in communicating my background and skills. 14) Suggest improvements to the overall structure and organization of the resume. 15) Rewrite the professional summary to specifically target the position from the job posting 16)Focus on best practices and industry standards for resume writing without including personal opinions or preferences. \n <Input Data>:\n<Resume:>\n{resume_content}\n\n<Job Posting:>\n{job_posting_content}"}
-            ],
-            user=PROJECT_ID
+        response = get_client().messages.create(
+            model=TAILOR_MODEL,
+            max_tokens=8000,
+            system=(
+                "You are an expert resume writer and ATS specialist. You rewrite resumes to "
+                "match a target job posting while staying strictly truthful."
+            ),
+            messages=[{
+                "role": "user",
+                "content": (
+                    "Rewrite my resume to target the job posting below.\n\n"
+                    "Rules:\n"
+                    "- Position my experience as a solution to the posting's needs.\n"
+                    "- Reuse the posting's exact keywords, terms, and phrasing where they honestly apply.\n"
+                    "- Keep it concise, active voice, and quantify impact where the original supports it.\n"
+                    "- Never fabricate experience, skills, employers, titles, or dates. Only reframe what is in my resume.\n"
+                    "- Output the full tailored resume in Markdown.\n"
+                    "- End with a section '## ATS Keyword Coverage' listing the posting's key terms "
+                    "and, for each, whether it is now reflected in the resume (yes / partial / missing).\n\n"
+                    "You may draw phrasing from these references, but do not copy any claim my resume "
+                    "does not support:\n"
+                    f"<action_words>\n{ACTION_WORDS}\n</action_words>\n"
+                    f"<resume_statements>\n{RESUME_STATEMENTS}\n</resume_statements>\n\n"
+                    f"<resume>\n{resume}\n</resume>\n\n"
+                    f"<job_posting>\n{_posting_text(meta, body)}\n</job_posting>"
+                ),
+            }],
         )
-        return response.choices[0].message.content
+        return _text(response)
     except Exception as e:
         logging.error(f"Error tailoring resume: {e}")
         return None
 
+
 def process_job_posting(filename, input_folder, output_folder, resume_content):
     input_path = os.path.join(input_folder, filename)
     output_path = os.path.join(output_folder, f"summary_{filename}")
-    tailored_resume_path = os.path.join(output_folder, f"Chris Twellman - {filename.replace('.txt', '.md')}")
-
+    tailored_resume_path = os.path.join(
+        output_folder, f"Chris Twellman - {filename.replace('.txt', '.md')}"
+    )
     try:
-        with open(input_path, 'r') as input_file:
-            job_posting_content = input_file.read()
-
-        if not job_posting_content.strip():
+        with open(input_path, "r", encoding="utf-8") as f:
+            raw = f.read()
+        if not raw.strip():
             logging.warning(f"Job posting content is empty for file: {filename}")
             return
+        meta, body = parse_posting(raw)
 
-        summary = summarize_job_posting(job_posting_content)
-
-        if summary:
-            with open(output_path, 'w') as output_file:
-                output_file.write(summary)
-
-            logging.info(f"Processed: {filename}")
-
-            tailored_resume = tailor_resume(resume_content, job_posting_content)
-
-            if tailored_resume:
-                with open(tailored_resume_path, 'w') as tailored_resume_file:
-                    tailored_resume_file.write(tailored_resume)
-
-                logging.info(f"Tailored resume created for: {filename}")
-            else:
-                logging.warning(f"Skipped (tailoring failed): {filename}")
-        else:
+        summary = summarize_job_posting(meta, body)
+        if not summary:
             logging.warning(f"Skipped (summary failed): {filename}")
+            return
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(summary)
+        logging.info(f"Processed: {filename}")
+
+        tailored = tailor_resume(resume_content, meta, body)
+        if tailored:
+            with open(tailored_resume_path, "w", encoding="utf-8") as f:
+                f.write(tailored)
+            logging.info(f"Tailored resume created for: {filename}")
+        else:
+            logging.warning(f"Skipped (tailoring failed): {filename}")
     except Exception as e:
         logging.error(f"Error processing file {filename}: {e}")
 
+
 def process_job_postings(input_folder, output_folder, resume_path):
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        logging.error("Missing environment variable: ANTHROPIC_API_KEY (add it to .env)")
+        raise SystemExit(1)
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    processed_files = set(f[8:] for f in os.listdir(output_folder) if f.startswith("summary_"))
-
-    with open(resume_path, 'r') as resume_file:
-        resume_content = resume_file.read()
-
+    processed = set(f[8:] for f in os.listdir(output_folder) if f.startswith("summary_"))
+    with open(resume_path, "r", encoding="utf-8") as f:
+        resume_content = f.read()
     if not resume_content.strip():
         logging.error("Resume content is empty.")
         return
 
     files_to_process = [
-        filename for filename in os.listdir(input_folder)
-        if filename.endswith(".txt") and filename not in processed_files
+        fn for fn in os.listdir(input_folder)
+        if fn.endswith(".txt") and fn not in processed
     ]
-
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [
-            executor.submit(process_job_posting, filename, input_folder, output_folder, resume_content)
-            for filename in files_to_process
+            executor.submit(process_job_posting, fn, input_folder, output_folder, resume_content)
+            for fn in files_to_process
         ]
-
         for _ in tqdm(as_completed(futures), total=len(futures), desc="Processing job postings"):
             pass
 
+
 if __name__ == "__main__":
-    input_folder = "Postings"
-    output_folder = "Customized Resumes"
-    resume_path = "/Users/christwellman/Projects/Job Search/Resume.md"
-    process_job_postings(input_folder, output_folder, resume_path)
+    process_job_postings("Postings", "Customized Resumes", str(SCRIPT_DIR / "Resume.md"))
