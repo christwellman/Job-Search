@@ -23,4 +23,9 @@ Resume.css
 Resume.md
 Using CHagt GPT For resume.md
 
+# Job Postings and Resume Files
+Postings/
+*.pdf
+resume.html
+
 .DS_Store

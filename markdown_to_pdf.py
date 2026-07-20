@@ -2,7 +2,7 @@ import markdown
 from weasyprint import HTML
 
 # Read the Markdown resume file
-with open('Resume.md', 'r') as file:
+with open('Customized Resumes/Chris Twellman - Principal Strategy & Operations Manager - Zillow.md', 'r') as file:
     md_content = file.read()
 
 # Convert Markdown to HTML
