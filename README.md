@@ -54,3 +54,16 @@ file date for older files):
 
 Each flagged posting is moved together with its summary and tailored resume.
 It never deletes, and never overwrites a file already in `Archive/`.
+
+## Aspiration file
+
+Build a running list of the skills, tools, certifications, and education you
+don't yet fully have — mined from the "ATS Keyword Coverage" tables in your
+tailored resumes:
+
+    ./venv/bin/python aspirations.py
+
+This reads every tailored resume in `Customized Resumes/`, collects the terms
+marked `missing` or `partial`, and asks Claude to cluster, categorize
+(Certifications & Education / Tools & Technologies / Skills & Capabilities), and
+rank them by how often they recur — writing `Aspiration.md`. Regenerated each run.
